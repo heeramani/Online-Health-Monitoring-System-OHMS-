@@ -1,0 +1,18 @@
+@startuml
+[*] --> SensorOn
+SensorOn : EstablishConnection()
+SensorOn --> Connected : Connecting
+Connected : SynchroniseWithCloud()
+Connected --> SensorOn : Connection lost
+Connected --> SensorOff
+SensorOn --> RecordingData : Getting ready for\n sensor data
+RecordingData : do/recordData()
+RecordingData --> OutOfPower : Discharging
+UploadingData --> OutOfPower : Discharging
+OutOfPower --> SensorOff : Switching off
+UploadingData : do/uploadData()
+Connected --> UploadingData : working
+
+
+SensorOff --> [*]
+@enduml

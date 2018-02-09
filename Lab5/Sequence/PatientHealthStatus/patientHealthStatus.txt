@@ -1,0 +1,25 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor Patient
+participant OHMS
+database Database
+
+Patient -> OHMS : getPatientData()
+activate Patient
+activate OHMS
+
+OHMS -> Database : requestPatientData()
+activate Database
+Database --> OHMS :  retrieveData()
+deactivate Database
+
+OHMS --> OHMS : drawGraph()
+OHMS --> Patient : displayGraphicalData()
+
+deactivate OHMS
+deactivate Patient
+@enduml

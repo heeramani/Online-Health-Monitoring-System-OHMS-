@@ -1,0 +1,150 @@
+@startuml
+skinparam backgroundColor AntiqueWhite
+skinparam class {
+	BackgroundColor YellowishGreen
+	ArrowColor SeaGreen
+	BorderColor SpringGreen
+
+}
+
+class MainIndex{
+	+register()
+	+logIn()
+	+homePage()
+}
+class User{
+	-userName : String
+	-password : String
+	-e_mail : String
+
+	+saveDate()
+}
+class Patient{
+	-dateOfBirth : int
+	-sensorId : String
+
+	-calculateDOB()
+	+uploadSensorData()
+	+registerSensor()
+}
+class Doctor{
+	-verifySensor()
+}
+User <|-- Doctor
+User <|-- Patient
+
+class DashBoard{
+	+myAccount()
+	+updateProfie()
+	+logOut()
+}
+
+class PatientDashBoard{
+	+viewMyHealth()
+	+consultDoctor()
+	+paymet()
+	+viewPrescription()
+	+viewSensorData()
+}
+class DoctorDashBoard{
+	+viewRegisteredPatient()
+	+monitorPatient()
+	+askPatientConsult()
+	+checkBalance()
+	+givePrescription()
+}
+
+DashBoard <|-- PatientDashBoard
+DashBoard <|-- DoctorDashBoard
+
+MainIndex - User
+MainIndex - Authorization
+Authorization *-- DashBoard
+
+
+class Authorization{
+-userId : String
+-password : String
+
+-authorize()
+}
+package PatientDatabase <<Database>>{
+    class PatientData{
+    -id : String
+    +authorization()
+    }
+}
+package DoctorDatabase <<Database>>{
+	class DoctorData{
+		-id : String
+		+authorization()
+	}
+}
+
+package SensorDatabase <<Database>>{
+	class SensorData{
+		-id : String
+		+authorization()
+	}
+}
+class Payment{
+	-id : String
+	-amount : float
+	-transactionId : int
+	+typeOfPayment()
+	+choosePayment()
+	+enterOTP()
+	+confirmPayment()
+
+}
+class OnlineBanking{
+	-username
+	-password
+	+logInBank()
+	+pay()
+	
+}
+class DebitCard_OR_CreditCard{
+	-nameOnCard
+	-cardNumber
+	-expirationDate
+	-CVV
+	+pay()
+	
+}
+Payment <|-- OnlineBanking
+Payment <|-- DebitCard_OR_CreditCard
+
+class Sensor{
+	-powerRemaining : int
+	-sensorId : String
+	+notification()
+	+autoupdate()
+}
+class HeartSensor{
+	-reading(bpm)
+}
+class BP_Sensor{
+	-reading(mmHg)
+}
+class temperatureSensor{
+	-reading(degree Celcius)
+}
+
+Sensor <|-- HeartSensor
+Sensor <|-- BP_Sensor
+Sensor <|-- temperatureSensor
+
+SensorDatabase - Sensor
+
+SensorDatabase - DashBoard
+SensorDatabase *-- Patient
+
+Patient  *-- PatientDatabase
+Doctor *-- DoctorDatabase
+
+PatientDatabase -- PatientDashBoard
+DoctorDatabase -- DoctorDashBoard
+
+PatientDashBoard o-- Payment
+@enduml

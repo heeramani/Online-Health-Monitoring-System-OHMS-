@@ -1,0 +1,21 @@
+@startuml
+skinparam backgroundColor LightYellow
+skinparam state {
+  StartColor MediumBlue
+  EndColor Red
+  BackgroundColor Peru
+
+  BorderColor Gray
+  FontName Impact
+}
+
+[*] --> Registered : Doctor registering on OHMS.
+Registered --> LogedIn : Filling LogIn data
+LogedIn --> AskedPatientToConsult : Querying With Patient
+LogedIn --> MonitoredPatient : Analysing patient data
+MonitoredPatient --> LogedOut : logging out OHMS
+AskedPatientToConsult --> : PrescribedPatient : Giving prescription to patient
+PrescribedPatient --> ReceivedPayment : Checking balance
+ReceivedPayment --> LogedOut : logging out OHMS
+LogedOut --> [*]
+@enduml

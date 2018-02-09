@@ -1,0 +1,31 @@
+@startuml
+
+class Table
+
+class Painter {
+	doPaint(): void
+}
+
+class House {
+	tables: Table[]
+	kitchen: Kitchen
+	bathroom1: Bathroom
+	bathroom2: Bathroom
+	
+	House(tables: Table[])
+	
+	paint(painter: Painter):void
+}
+
+class Kitchen {
+
+}
+
+class Bathroom {
+
+}
+
+Kitchen * -* 1 House
+Bathroom * -* 1 House
+
+@enduml

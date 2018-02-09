@@ -1,0 +1,23 @@
+@startuml
+skinparam backgroundColor LightYellow
+skinparam state {
+  StartColor MediumBlue
+  EndColor Red
+  BackgroundColor Peru
+
+  BorderColor Gray
+  FontName Impact
+}
+
+[*] --> Registered : Patient registering on OHMS.
+Registered --> LogedIn : Filling LogIn data
+state "Consulted Doctor" as Consult
+LogedIn --> Consult : Checking Doctor availability
+LogedIn --> ViewedHealthStatus : Checking different data
+ViewedHealthStatus --> ViewedSensorGraph : Viewing different graph of health
+ViewedSensorGraph --> LogedOut : Loging out of OHMS
+Consult --> PaidConsultancyFee : Paying fee using Online/Card mode
+PaidConsultancyFee --> TakenPrescription : Getting prescription from doctor
+TakenPrescription --> LogedOut : Loging out of OHMS
+LogedOut --> [*]
+@enduml

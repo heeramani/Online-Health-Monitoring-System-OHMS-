@@ -1,0 +1,82 @@
+@startuml
+left to right direction
+skinparam packageStyle rectangle
+
+
+UP <<Human>>
+UD <<Human>>
+
+Patient as UP
+Doctor as UD
+
+
+skinparam usecase {
+	BackgroundColor<< UP >> DarkSeaGreen
+	BorderColor<< UP >> DarkSlateGray
+
+	BackgroundColor<< Both >> YellowGreen
+	BorderColor<< Both >> YellowGreen
+
+	BackgroundColor<< UD >> Yellow
+	BorderColor<< UD >> Yellow
+
+   ArrowColor Olive
+   ActorBorderColor black
+   ActorFontName Courier
+
+   ActorBackgroundColor<< Human >> Gold
+}
+
+
+
+rectangle "OnlineHealthMonitoring" {
+(Register) as (UC1)
+(Login) as (UC2)
+(Logout) as (UC3)
+(ViewHealthStatus) as (UC4)
+(ViewPatientHealth) as (UC5)
+(ViewAvailableDoctor) as (UC6)
+(AskConsultDoctor) as (UC7)
+(AskConsultPatient) as (UC8)
+(Payment) as (UC9)
+(Prescription) as (UC10)
+
+(Credit/Debit Card) as (UC11)
+(OnlinePayment) as (UC12)
+
+
+
+UP -- (UC1) : initiate
+UD -left-- (UC1) : initiate
+
+UP -- (UC2) : initiate
+UD -left-- (UC2) : initiate
+
+
+UP -- (UC3) : initiate
+UD -left-- (UC3) : initiate
+
+UP -- (UC4) : initiate
+
+UP -- (UC5) :participate
+UD -left-- (UC5) : initiate
+
+UP -- (UC6) : initiate
+UD -- (UC6) : participate
+
+UP -- (UC7) : initiate
+
+UD -left-- (UC8) : initiate
+
+UP -- (UC9) : initiate
+(UC9) -down.> (UC11) : <<extends>>
+(UC9) -down.> (UC12) : <<extends>>
+
+
+
+UP -- (UC10) :participate  
+UD -left-- (UC10) : initiate
+
+
+}
+@enduml

@@ -1,0 +1,32 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 20
+skinparam maxmessagesize 60
+skinparam sequenceParticipant underline
+
+actor user
+participant OHMS
+database Database
+
+user -> OHMS : Register()
+activate user
+activate OHMS
+
+OHMS --> OHMS : blankProfile()
+OHMS --> user : acknowlegde()
+deactivate user
+deactivate OHMS
+
+
+user ->  OHMS : fillData()
+activate user
+activate OHMS
+OHMS -> Database :checkUserId()
+activate Database
+Database -->  OHMS : acknowledge()
+deactivate Database
+
+OHMS --> user : displayUserProfile()
+deactivate OHMS
+deactivate user
+@enduml
